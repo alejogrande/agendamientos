@@ -1,3 +1,5 @@
+import 'package:agendamientos/data/constans.dart';
+
 class Court {
   final int id;
   final String name;
@@ -34,17 +36,17 @@ List<Court> courts = [
       name: "A",
       size: "34,74 x 17,07 mts",
       details: "Recreativa",
-      image: ""),
+      image: Assets.courtRecreative),
   const Court(
       id: 2002,
       name: "B",
       size: "36,57 x 18,29 mts",
       details: "Entrenamiento",
-      image: ""),
+      image: Assets.courtTraining),
   const Court(
       id: 2003,
       name: "C",
       size: "40,23 x 20,11 mts",
       details: "Profesional",
-      image: "")
+      image: Assets.courtProfessional)
 ];
