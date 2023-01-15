@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Reservas"),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.reservation),
+          onPressed: () => Navigator.pushNamed(context, Routes.courtSelection),
           child: const Icon(Icons.add)),
       body: const Center(child: Text("home page")),
     );

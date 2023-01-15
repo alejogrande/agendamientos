@@ -2,14 +2,16 @@ class Routes {
   static const String splash = 'splash';
   static const String home = 'home';
   static const String reservation = 'reservation';
+  static const String courtSelection = 'courtSelection';
 }
 
 class Assets {
-   static const String logo = "lib/resources/images/logo.png";
-   static const String splashImage = "lib/resources/images/splash_image.jpg";
-   static const String courtRecreative = "lib/resources/images/splash_image.jpg";
-   static const String courtProfessional = "lib/resources/images/splash_image.jpg";
-   static const String courtTraining = "lib/resources/images/splash_image.jpg";
+  static const String logo = "lib/resources/images/logo.png";
+  static const String splashImage = "lib/resources/images/splash_image.jpg";
+  static const String courtRecreative = "lib/resources/images/splash_image.jpg";
+  static const String courtProfessional =
+      "lib/resources/images/splash_image.jpg";
+  static const String courtTraining = "lib/resources/images/splash_image.jpg";
 }
 
 class Const {

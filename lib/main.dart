@@ -1,7 +1,7 @@
 import 'package:agendamientos/data/constans.dart';
 import 'package:agendamientos/data/datasources/local_data_sources.dart';
 import 'package:agendamientos/data/routes/routes.dart';
-import 'package:agendamientos/shared_library/themes.dart';
+import 'package:agendamientos/resources/theme/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       theme: theme(context),
       routes: appRoutes,
       initialRoute: Routes.splash,
+      themeMode: ThemeMode.light,
     );
   }
 }
