@@ -13,13 +13,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: Const.splashDuration),
-      () => {
-        // ignore: todo
-        //TODO: Navegacion inicial
-      },
-    );
+    Future.delayed(const Duration(seconds: Const.splashDuration),
+        () => Navigator.pushReplacementNamed(context, Routes.home));
   }
 
   @override
@@ -27,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(Const.radius),
           child: Image.asset(
             Assets.logo,
             width: 100,

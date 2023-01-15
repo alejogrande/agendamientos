@@ -1,11 +1,12 @@
 import 'package:agendamientos/data/constans.dart';
+import 'package:agendamientos/data/datasources/local_data_sources.dart';
 import 'package:agendamientos/data/routes/routes.dart';
 import 'package:agendamientos/shared_library/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  runApp( const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    create();
     return MaterialApp(
-      // title: 'Agendamientos',
+      title: 'Agendamientos',
       debugShowCheckedModeBanner: false,
       theme: theme(context),
       routes: appRoutes,
