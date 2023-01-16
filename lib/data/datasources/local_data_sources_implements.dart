@@ -20,8 +20,8 @@ class LocalDataSourceImplement implements LocalDatabase {
 
   Future<Database> get database async {
     if (_database == null) {
-        _database= await _initDatabase();
-      print(schedule);
+      _database = await _initDatabase();
+    
     }
     return _database!;
   }
@@ -63,7 +63,6 @@ class LocalDataSourceImplement implements LocalDatabase {
     }
   }
 
-  
   Future<List<Hour>> viewHours() async {
     final db = await database;
 
@@ -100,9 +99,18 @@ class LocalDataSourceImplement implements LocalDatabase {
   }
 
   @override
-  Future insertBooking(Booking booking) {
-    // TODO: implement insertBooking
-    throw UnimplementedError();
+  Future insertBooking(Booking booking) async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('booking');
+
+    await db.insert(
+      'booking',
+      booking.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+var a = viewBooking();
+    print(viewBooking().toString());
   }
 
   @override
@@ -126,12 +134,11 @@ class LocalDataSourceImplement implements LocalDatabase {
     return List.generate(maps.length, (i) {
       return Booking(
         id: maps[i]['id'],
-        date: maps[i]['date'],
+        date: DateTime.parse(maps[i]['date']),
         grade: maps[i]['grade'],
         idCourt: maps[i]['idCourt'],
         idHour: maps[i]['idHour'],
-        precipitation: maps[i]['precipitation'],
-        weather: maps[i]['weather'],
+        icon: maps[i]['icon'],
       );
     });
   }

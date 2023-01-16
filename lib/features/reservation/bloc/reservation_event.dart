@@ -22,3 +22,10 @@ class ReservationSelectedDateEvent extends ReservationEvent {
   DateTime date;
   ReservationSelectedDateEvent(this.court, this.date);
 }
+
+class CreateReservationEvent extends ReservationEvent{
+  Booking booking;
+  CreateReservationEvent(this.booking);
+
+
+}

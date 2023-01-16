@@ -1,4 +1,5 @@
 import 'package:agendamientos/data/datasources/local_data_sources_implements.dart';
+import 'package:agendamientos/data/models/booking_model.dart';
 import 'package:agendamientos/data/models/court_model.dart';
 
 import 'package:agendamientos/domain/repository/booking_repository.dart';
@@ -28,6 +29,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   late CourtSelectionBloc courtBloc;
   late ReservationBloc reservationBloc;
   late TextEditingController dateController;
+  late TextEditingController nombreController;
   late String? idHour;
 
   @override
@@ -37,6 +39,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     courtBloc = BlocProvider.of<CourtSelectionBloc>(context);
     dateController =
         TextEditingController(text: Utils.formatDateTime(DateTime.now()));
+    nombreController = TextEditingController(text: "");
     idHour = "1001";
 
     // courtBloc.add(CourtSelectionLoadingEvent());
@@ -53,117 +56,137 @@ class _ReservationScreenState extends State<ReservationScreen> {
           title: const Text("Crear reserva"),
         ),
         body: BlocBuilder<ReservationBloc, ReservationState>(
-            bloc: reservationBloc, // provide the local bloc instance
-            builder: (context, state) {
-              return (state is ReservationInitialState ||
-                      state is ReservationSelectedDateState)
-                  ? SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomHeader(title: state.court?.name),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  "Ingresar fecha:  ",
-                                  style: _theme.textTheme.headline3,
-                                ),
-                                Flexible(
-                                  child: TextFormField(
-                                    textAlign: TextAlign.center,
-                                    controller: dateController,
-                                    onTap: () async {
-                                      await showDialog(
-                                          context: context,
-                                          builder: ((context) =>
-                                              DialogSelectionCompactFecha(
-                                                  state.court)));
+          bloc: reservationBloc, // provide the local bloc instance
 
-                                      setState(() {
-                                        dateController.text =
-                                            Utils.formatDateTime(state.date);
-                                      });
-                                    },
-                                    readOnly: true,
-                                    decoration: const InputDecoration(
-                                      iconColor: AppColors.primary,
-                                      suffixIcon: Icon(
-                                        Icons.edit_calendar_outlined,
-                                        color: AppColors.secondary,
-                                      ),
-                                    ),
-                                    keyboardType: null,
-
-                                    // style: Theme.of(context).textTheme.body1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 42,
-                            ),
-                            Row(children: [
-                              Text("Hora de reserva: ",
-                                  style: _theme.textTheme.headline3),
-                              SizedBox(
-                                width: 25,
+          builder: (context, state) {
+            return (state is ReservationInitialState ||
+                    state is ReservationSelectedDateState)
+                ? SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomHeader(title: state.court?.name),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "Ingresar fecha:  ",
+                                style: _theme.textTheme.headline3,
                               ),
                               Flexible(
-                                child: DropdownButton(
-                                  // ignore: prefer_null_aware_operators
-                                  items: state.listHours != null
-                                      ? state.listHours
-                                          .map<DropdownMenuItem<String>>(
-                                            (item) => DropdownMenuItem<String>(
-                                              onTap: () {
-                                                setState(() {
-                                                  //CREA UNA VARIABLE DE CLASE DEL ID
-                                                  //  idHour = item.userId;
-                                                });
-                                              },
-                                              value: item.id.toString(),
-                                              child: Text(item.details),
-                                            ),
-                                          )
-                                          .toList()
-                                      : null,
-                                  value: idHour,
-                                  onChanged: (value) {
-                                    idHour = value;
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller: dateController,
+                                  onTap: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: ((context) =>
+                                            DialogSelectionCompactFecha(
+                                                state.court)));
+
+                                    setState(() {
+                                      dateController.text =
+                                          Utils.formatDateTime(state.date);
+                                    });
                                   },
+                                  readOnly: true,
+                                  decoration: const InputDecoration(
+                                    iconColor: AppColors.primary,
+                                    suffixIcon: Icon(
+                                      Icons.edit_calendar_outlined,
+                                      color: AppColors.secondary,
+                                    ),
+                                  ),
+                                  keyboardType: null,
+
+                                  // style: Theme.of(context).textTheme.body1,
                                 ),
                               ),
-                            ]
-                                // , onChanged: ((value) {})),
-                                ),
-                            state is ReservationSelectedDateState?    
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text("Clima: ${state.grade}°C"),
-                                Image.network("${state.icon}"),
-                              ],
-                            ):Container(),
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            Text("Nombre de la reserva:",
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 42,
+                          ),
+                          Row(children: [
+                            Text("Hora de reserva: ",
                                 style: _theme.textTheme.headline3),
-                            TextFormField(),
-                            const SizedBox(
-                              height: 50,
+                            SizedBox(
+                              width: 25,
                             ),
-                            CustomElevatedButton(
-                              onTap: (() {}),
-                              label: "Guardar",
-                            )
-                          ],
-                        ),
+                            Flexible(
+                              child: DropdownButton(
+                                // ignore: prefer_null_aware_operators
+                                items: state.listHours != null
+                                    ? state.listHours
+                                        .map<DropdownMenuItem<String>>(
+                                          (item) => DropdownMenuItem<String>(
+                                            onTap: () {
+                                              setState(() {
+                                                //CREA UNA VARIABLE DE CLASE DEL ID
+                                                //  idHour = item.userId;
+                                              });
+                                            },
+                                            value: item.id.toString(),
+                                            child: Text(item.details),
+                                          ),
+                                        )
+                                        .toList()
+                                    : null,
+                                value: idHour,
+                                onChanged: (value) {
+                                  idHour = value;
+                                },
+                              ),
+                            ),
+                          ]
+                              // , onChanged: ((value) {})),
+                              ),
+                          state is ReservationSelectedDateState
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Clima: ${state.grade}°C"),
+                                    Image.network("${state.icon}"),
+                                  ],
+                                )
+                              : Container(),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Text("Nombre de la reserva:",
+                              style: _theme.textTheme.headline3),
+                          TextFormField(
+                            controller: nombreController,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          state is ReservationSelectedDateState
+                              ? CustomElevatedButton(
+                                  onTap: (() {
+                                    if (nombreController.text != "") {
+                                      reservationBloc.add(
+                                          CreateReservationEvent(Booking(
+                                              date: state.date,
+                                              idCourt: state.court?.id,
+                                              idHour: int.parse(idHour!),
+                                              grade: state.grade,
+                                              icon: state.icon)));
+                                    } else {}
+                                  }),
+                                  label: "Guardar",
+                                )
+                              : const CustomElevatedButton(
+                                  onTap: null,
+                                  label: "Guardar",
+                                ),
+                        ],
                       ),
-                    )
-                  : Container();
-            }));
+                    ),
+                  )
+                : Container();
+          },
+        ));
   }
 }

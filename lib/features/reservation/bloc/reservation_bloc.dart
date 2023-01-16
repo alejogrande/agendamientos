@@ -1,8 +1,7 @@
-
-
 import 'dart:ffi';
 
 import 'package:agendamientos/data/datasources/local_data_sources_implements.dart';
+import 'package:agendamientos/data/models/booking_model.dart';
 import 'package:agendamientos/data/models/court_model.dart';
 import 'package:agendamientos/data/models/hour_model.dart';
 import 'package:agendamientos/data/models/weather_model.dart' as w;
@@ -24,16 +23,24 @@ class ReservationBloc extends Bloc<ReservationEvent, ReservationState> {
       } else if (event is ReservationLoadingEvent) {
         emit(ReservationLoadingState());
       } else if (event is ReservationSelectedDateEvent) {
-
         BookingRepository repository =
             BookingRepository(LocalDataSourceImplement());
 
         List<Hour> listHours = await repository.getHours();
-        w.Weather? response = await HttpService.getWeather(Utils.formatDateTimeService(event.date));
-        String? icon ="https:${response?.forecast?.forecastday?[0]!.hour?[0]!.condition?.icon}";
-        int? grade= response?.forecast?.forecastday?[0]!.hour?[0]!.tempC!.round();
-        
-        emit(ReservationSelectedDateState(event.court,event.date,listHours,icon,grade));
+        w.Weather? response = await HttpService.getWeather(
+            Utils.formatDateTimeService(event.date));
+        String? icon =
+            "https:${response?.forecast?.forecastday?[0]!.hour?[0]!.condition?.icon}";
+        int? grade =
+            response?.forecast?.forecastday?[0]!.hour?[0]!.tempC!.round();
+
+        emit(ReservationSelectedDateState(
+            event.court, event.date, listHours, icon, grade));
+      } else if (event is CreateReservationEvent) {
+        BookingRepository repository =
+            BookingRepository(LocalDataSourceImplement());
+
+        var response = await repository.setBooking(event.booking);
       }
     });
   }
