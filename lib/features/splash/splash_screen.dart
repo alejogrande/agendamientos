@@ -13,26 +13,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: Const.splashDuration),
-      () => {
-        // ignore: todo
-        //TODO: Navegacion inicial
-      },
-    );
+     Future.delayed(const Duration(seconds: Const.splashDuration),
+       () => Navigator.pushReplacementNamed(context, Routes.home));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Image.asset(
-            Assets.logo,
-            width: 100,
-            height: 100,
-          ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Image.asset(
+          Assets.splashImage,
+          fit: BoxFit.fill,
+          
         ),
       ),
     );

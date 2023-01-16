@@ -10,6 +10,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   google_fonts: ^2.2.0
+  sqflite: ^2.2.3
+  path: 
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:

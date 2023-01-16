@@ -1,9 +1,27 @@
 class Routes {
   static const String splash = 'splash';
+  static const String home = 'home';
+  static const String reservation = 'reservation';
+  static const String courtSelection = 'courtSelection';
 }
 
 class Assets {
-   static const String logo = "lib/resources/images/logo.png";
+  static const String logo = "lib/resources/images/logo.png";
+  static const String splashImage = "lib/resources/images/splash_image.jpg";
+  static const String courtRecreative = "lib/resources/images/splash_image.jpg";
+  static const String courtProfessional =
+      "lib/resources/images/splash_image.jpg";
+  static const String courtTraining = "lib/resources/images/splash_image.jpg";
+}
+
+class DataBase {
+  static const String createTablehour =
+      "CREATE TABLE hour(id INTEGER PRIMARY KEY, details TEXT)";
+  static const String createTableCourt =
+      "CREATE TABLE court(id INTEGER PRIMARY KEY, name TEXT,size TEXT,details TEXT,image TEXT)";
+
+ static const  String createTableBooking =
+      "CREATE TABLE booking(id INTEGER PRIMARY KEY, date TEXT,idCourt INTEGER,weather TEXT,precipitation INTEGER,grade INTEGER)";
 }
 
 class Const {

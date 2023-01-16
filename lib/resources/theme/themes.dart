@@ -4,18 +4,23 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData theme(BuildContext context) {
   return ThemeData(
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: AppColors.primary,
+          secondary: AppColors.secondary, // Your accent color
+        ),
     brightness: Brightness.light,
+    secondaryHeaderColor: Colors.red,
     backgroundColor: AppColors.background,
     cardColor: AppColors.card,
     disabledColor: AppColors.disabledButton,
     errorColor: AppColors.error,
     hintColor: AppColors.fontSubtitle,
     indicatorColor: AppColors.primary,
-    primaryColorLight: AppColors.primary,
+    primaryColor: AppColors.primary,
     primaryIconTheme: const IconThemeData(
       color: AppColors.fontTitle,
     ),
-    primaryColor: AppColors.primary,
+    // primaryColor: AppColors.primary,
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: AppColors.primary,
     ),
