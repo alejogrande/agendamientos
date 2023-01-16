@@ -2,12 +2,18 @@ import 'package:agendamientos/data/constans.dart';
 import 'package:agendamientos/data/datasources/local_data_sources.dart';
 import 'package:agendamientos/data/datasources/local_data_sources_implements.dart';
 import 'package:agendamientos/data/routes/routes.dart';
+import 'package:agendamientos/features/court_selection/bloc/court_selection_bloc.dart';
+import 'package:agendamientos/features/reservation/bloc/reservation_bloc.dart';
 import 'package:agendamientos/resources/theme/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: [
+     BlocProvider(create: (_) => ReservationBloc()),
+    BlocProvider(create: (_) => CourtSelectionBloc()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

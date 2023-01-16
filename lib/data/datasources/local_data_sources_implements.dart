@@ -20,18 +20,14 @@ class LocalDataSourceImplement implements LocalDatabase {
 
   Future<Database> get database async {
     if (_database == null) {
-      await _initDatabase();
-      await insertHours(schedule);
-      await insertCourts(courts);
+        _database= await _initDatabase();
       print(schedule);
     }
     return _database!;
   }
 
-
- 
   Future<Database> _initDatabase() async {
-    return openDatabase(
+    Database db = await openDatabase(
       join(await getDatabasesPath(), 'booking.db'),
       onCreate: (db, version) {
         for (var query in queryCreateTables) {
@@ -41,9 +37,13 @@ class LocalDataSourceImplement implements LocalDatabase {
       },
       version: 1,
     );
+
+    await insertHours(db, schedule);
+    await insertCourts(db, courts);
+    return db;
   }
-  Future<void> insertHours(List<Hour> listHours) async {
-    final db = await database;
+
+  Future<void> insertHours(Database db, List<Hour> listHours) async {
     for (var element in listHours) {
       await db.insert(
         'hour',
@@ -53,9 +53,7 @@ class LocalDataSourceImplement implements LocalDatabase {
     }
   }
 
-  Future<void> insertCourts(List<Court> listCourts) async {
-    final db = await database;
-
+  Future<void> insertCourts(Database db, List<Court> listCourts) async {
     for (var element in listCourts) {
       await db.insert(
         'court',
@@ -65,7 +63,8 @@ class LocalDataSourceImplement implements LocalDatabase {
     }
   }
 
-  Future<List<Hour>> hours() async {
+  
+  Future<List<Hour>> viewHours() async {
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('hour');
@@ -136,5 +135,4 @@ class LocalDataSourceImplement implements LocalDatabase {
       );
     });
   }
-
 }
