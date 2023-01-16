@@ -2,7 +2,7 @@ class Booking {
   final int id;
   final int idHour;
   final int idCourt;
-  final String date;
+  final DateTime date;
   final int precipitation;
   final int grade;
   final String weather;
@@ -19,7 +19,7 @@ class Booking {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'date': date,
+      'date': date.toString(),
       'idCourt': idCourt,
       'idHour': idHour,
       'weather': weather,

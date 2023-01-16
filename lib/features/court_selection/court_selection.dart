@@ -6,6 +6,7 @@ class CourtSelectionScreen extends StatefulWidget {
 
   @override
 
+  // ignore: library_private_types_in_public_api
   _CourtSelectionScreenState createState() => _CourtSelectionScreenState();
 }
 
@@ -18,14 +19,19 @@ class _CourtSelectionScreenState extends State<CourtSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text("Selección de cancha"),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.reservation),
-          child: const Icon(Icons.add)),
-      body: const Center(child: Text("SelectionCourt page")),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () => Navigator.pushNamed(context, Routes.reservation),
+          // child: const Icon(Icons.add)),
+      body: Container(
+        
+      )
+      
+      
     );
   }
 }

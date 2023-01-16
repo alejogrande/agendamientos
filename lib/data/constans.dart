@@ -14,6 +14,16 @@ class Assets {
   static const String courtTraining = "lib/resources/images/splash_image.jpg";
 }
 
+class DataBase {
+  static const String createTablehour =
+      "CREATE TABLE hour(id INTEGER PRIMARY KEY, details TEXT)";
+  static const String createTableCourt =
+      "CREATE TABLE court(id INTEGER PRIMARY KEY, name TEXT,size TEXT,details TEXT,image TEXT)";
+
+ static const  String createTableBooking =
+      "CREATE TABLE booking(id INTEGER PRIMARY KEY, date TEXT,idCourt INTEGER,weather TEXT,precipitation INTEGER,grade INTEGER)";
+}
+
 class Const {
   static const double buttonRadius = 15;
   static const double margin = 18;
