@@ -10,3 +10,9 @@ class CourtSelectionLoadingEvent extends CourtSelectionEvent{
 //   CourtSelectionLoadingEvent(this.aa);
 
 }
+
+class CourtSelectionSelectedEvent extends CourtSelectionEvent{
+     Court courtSelected;
+    CourtSelectionSelectedEvent(this.courtSelected);
+
+}

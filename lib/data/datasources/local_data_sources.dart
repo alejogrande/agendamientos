@@ -1,8 +1,10 @@
 import 'package:agendamientos/data/models/booking_model.dart';
 import 'package:agendamientos/data/models/court_model.dart';
+import 'package:agendamientos/data/models/hour_model.dart';
 
 abstract class LocalDatabase {
   Future<List<Court>> viewCourts();
+  Future<List<Hour>> viewHours();
   Future<List<Booking>> viewBooking();
   Future<List<Booking>> viewAvailableDate(DateTime dateSelected, Court court);
   Future<dynamic> insertBooking(Booking booking);

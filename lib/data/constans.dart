@@ -8,10 +8,10 @@ class Routes {
 class Assets {
   static const String logo = "lib/resources/images/logo.png";
   static const String splashImage = "lib/resources/images/splash_image.jpg";
-  static const String courtRecreative = "lib/resources/images/splash_image.jpg";
+  static const String courtRecreative = "lib/resources/images/receativa.jpg";
   static const String courtProfessional =
-      "lib/resources/images/splash_image.jpg";
-  static const String courtTraining = "lib/resources/images/splash_image.jpg";
+      "lib/resources/images/profesional.jpg";
+  static const String courtTraining = "lib/resources/images/entrenamiento.jpg";
 }
 
 class DataBase {
@@ -21,7 +21,7 @@ class DataBase {
       "CREATE TABLE court(id INTEGER PRIMARY KEY, name TEXT,size TEXT,details TEXT,image TEXT)";
 
  static const  String createTableBooking =
-      "CREATE TABLE booking(id INTEGER PRIMARY KEY, date TEXT,idCourt INTEGER,weather TEXT,precipitation INTEGER,grade INTEGER)";
+      "CREATE TABLE booking(id INTEGER PRIMARY KEY, date TEXT,idCourt INTEGER,icon TEXT,grade INTEGER,idHour INTEGER)";
 }
 
 class Const {

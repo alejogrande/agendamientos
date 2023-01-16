@@ -1,35 +1,32 @@
 class Booking {
-  final int id;
-  final int idHour;
-  final int idCourt;
-  final DateTime date;
-  final int precipitation;
-  final int grade;
-  final String weather;
+  final int? id;
+  final int? idHour;
+  final int? idCourt;
+  final DateTime? date;
+  final String? icon;
+  final int? grade;
 
   const Booking(
-      {required this.id,
+      { this.id,
       required this.date,
       required this.idCourt,
       required this.idHour,
-      required this.weather,
       required this.grade,
-      required this.precipitation});
+      required this.icon});
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      // 'id': id,
       'date': date.toString(),
       'idCourt': idCourt,
       'idHour': idHour,
-      'weather': weather,
       'grade': grade,
-      'precipitation': precipitation,
+      'icon': icon,
     };
   }
 
   @override
   String toString() {
-    return 'hours{id: $id, date: $date, idCourt: $idCourt, idHour: $idHour, weather: $weather, grade: $grade, details: $precipitation}';
+    return 'hours{id: $id, date: $date, idCourt: $idCourt, idHour: $idHour,, grade: $grade, icon: $icon}';
   }
 }

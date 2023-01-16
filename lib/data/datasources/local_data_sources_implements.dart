@@ -20,18 +20,14 @@ class LocalDataSourceImplement implements LocalDatabase {
 
   Future<Database> get database async {
     if (_database == null) {
-      await _initDatabase();
-      await insertHours(schedule);
-      await insertCourts(courts);
-      print(schedule);
+      _database = await _initDatabase();
+    
     }
     return _database!;
   }
 
-
- 
   Future<Database> _initDatabase() async {
-    return openDatabase(
+    Database db = await openDatabase(
       join(await getDatabasesPath(), 'booking.db'),
       onCreate: (db, version) {
         for (var query in queryCreateTables) {
@@ -41,9 +37,13 @@ class LocalDataSourceImplement implements LocalDatabase {
       },
       version: 1,
     );
+
+    await insertHours(db, schedule);
+    await insertCourts(db, courts);
+    return db;
   }
-  Future<void> insertHours(List<Hour> listHours) async {
-    final db = await database;
+
+  Future<void> insertHours(Database db, List<Hour> listHours) async {
     for (var element in listHours) {
       await db.insert(
         'hour',
@@ -53,9 +53,7 @@ class LocalDataSourceImplement implements LocalDatabase {
     }
   }
 
-  Future<void> insertCourts(List<Court> listCourts) async {
-    final db = await database;
-
+  Future<void> insertCourts(Database db, List<Court> listCourts) async {
     for (var element in listCourts) {
       await db.insert(
         'court',
@@ -65,7 +63,7 @@ class LocalDataSourceImplement implements LocalDatabase {
     }
   }
 
-  Future<List<Hour>> hours() async {
+  Future<List<Hour>> viewHours() async {
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('hour');
@@ -101,9 +99,18 @@ class LocalDataSourceImplement implements LocalDatabase {
   }
 
   @override
-  Future insertBooking(Booking booking) {
-    // TODO: implement insertBooking
-    throw UnimplementedError();
+  Future insertBooking(Booking booking) async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('booking');
+
+    await db.insert(
+      'booking',
+      booking.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+var a = viewBooking();
+    print(viewBooking().toString());
   }
 
   @override
@@ -127,14 +134,12 @@ class LocalDataSourceImplement implements LocalDatabase {
     return List.generate(maps.length, (i) {
       return Booking(
         id: maps[i]['id'],
-        date: maps[i]['date'],
+        date: DateTime.parse(maps[i]['date']),
         grade: maps[i]['grade'],
         idCourt: maps[i]['idCourt'],
         idHour: maps[i]['idHour'],
-        precipitation: maps[i]['precipitation'],
-        weather: maps[i]['weather'],
+        icon: maps[i]['icon'],
       );
     });
   }
-
 }
